@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      *{
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          color: #FFF;
+          background: #ebf2f5;
+        }
+
+        body {
+          font: 400 10px Nunito, sans-serif;
+        }
+
+        .main {
+          width: -moz-fir-content;
+          width: fit-content;
+        }
+
+        p {
+          font-size: 110%;
+          font-weight: bold;
+        }
+
+        .token-block {
+          padding: 5%;
+          margin: 15%;
+          margin-top: 5%;
+          margin-bottom: 5%;
+
+          font-size: x-large;
+          background-color: #181818;
+          color: #d2d2e3;
+        }
+
+        .message-block {
+          margin-left: 25%;
+          margin-right: 25%;
+
+          font-size: x-large;
+          color: #181818;
+        }
+        
+        .footer-block {
+          margin-top: 5%;
+          margin-left: 25%;
+          margin-right: 25%;
+
+          font-size: small;
+          color: #181818;
+        }
+    </style>
+    <title>Rose estética</title>
+  </head>
+  <body>
+    <div class="main">
+      <div class="token-block">
+        Seu código de recuperação de senha é: {{token}}
+      </div>
+      <div class="message-block">
+        Por favor retorne ao app e insira o código acima para confirmar sua identidade, o código expira daqui à 1 hora.
+      </div>
+      <div class="footer-block">
+        Atenciosamente, <br/>
+        <p>
+          Rose estética
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
