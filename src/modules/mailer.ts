@@ -8,9 +8,9 @@ import mailConfig from '../config/mail';
 const { host, port, secure, user, pass, ciphers } = mailConfig;
 
 const transport = nodemailer.createTransport({
-  host,
-  port,
-  secure,
+  host: String(host),
+  port: Number(port),
+  secure: Boolean(secure),
   auth: {
     user,
     pass
