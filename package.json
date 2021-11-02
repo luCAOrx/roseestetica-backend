@@ -1,10 +1,10 @@
 {
-  "name": "roseestetica-app",
+  "name": "roseestetica-api",
   "version": "1.0.0",
   "description": "Api para gerenciamento de atendimentos",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node dist/src/server.js",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "test": "cross-env NODE_ENV=test jest",
     "development:knex:seed": "knex --knexfile knexfile.ts seed:run",
