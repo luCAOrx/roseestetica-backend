@@ -1,7 +1,7 @@
 import Knex from 'knex';
 
 export async function up(knex: Knex) {
-  return knex.schema.createTable('agendamentos_procedimentos', table => {
+  return knex.schema.createTable('agendamentos_procedimentos', (table) => {
     table.increments('id').primary();
 
     table.integer('agendamento_id').unsigned().notNullable();
@@ -19,8 +19,8 @@ export async function up(knex: Knex) {
       .references('id')
       .inTable('procedimentos');
   });
-};
+}
 
 export async function down(knex: Knex) {
   return knex.schema.dropTable('agendamentos_procedimentos');
-};
+}

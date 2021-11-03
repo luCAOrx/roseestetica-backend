@@ -1,12 +1,9 @@
-import { Request } from 'express';
-
-import multer, { FileFilterCallback } from 'multer';
-
-import path from  'path';
-import crypto from 'crypto';
-
-import multerS3 from 'multer-s3';
 import aws from 'aws-sdk';
+import crypto from 'crypto';
+import { Request } from 'express';
+import multer, { FileFilterCallback } from 'multer';
+import multerS3 from 'multer-s3';
+import path from 'path';
 
 const doisMB = 2 * 1024 * 1024;
 
@@ -19,7 +16,7 @@ const tiposArmazenados = {
       file.key = `${hash}-${file.originalname}`;
 
       callback(null, file.key);
-    }
+    },
   }),
   s3: multerS3({
     s3: new aws.S3(),
@@ -32,7 +29,7 @@ const tiposArmazenados = {
       const fileName = `${hash}-${file.originalname}`;
 
       callback(null, fileName);
-    }
+    },
   }),
 };
 
@@ -40,7 +37,7 @@ export default {
   destination: path.resolve(__dirname, '..', '..', 'uploads'),
   storage: process.env.STORAGE_TYPE === 'local' ? tiposArmazenados.local : tiposArmazenados.s3,
   limits: {
-    fileSize: doisMB
+    fileSize: doisMB,
   },
 
   fileFilter(request: Request, file: Express.Multer.File, callback: FileFilterCallback) {
@@ -57,5 +54,5 @@ export default {
       callback(null, false);
       callback(new Error('Tipo de arquivo inválido.'));
     }
-  }
+  },
 };

@@ -1,18 +1,11 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-import express from 'express';
-
-import 'express-async-errors';
-
+import 'dotenv/config';
 import cors from 'cors';
-
-import routes from './routes';
-
+import express from 'express';
+import 'express-async-errors';
 import path from 'path';
 
 import errorHandler from './errors/handler';
+import routes from './routes';
 
 const app = express();
 

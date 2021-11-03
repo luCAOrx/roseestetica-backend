@@ -1,7 +1,7 @@
 import Knex from 'knex';
 
 export async function up(knex: Knex) {
-  return knex.schema.createTable('clientes', table => {
+  return knex.schema.createTable('clientes', (table) => {
     table.increments('id').primary();
 
     table.string('nome', 90).notNullable();
@@ -25,8 +25,8 @@ export async function up(knex: Knex) {
     table.foreign('sexo_id').references('id').inTable('sexos');
     table.foreign('cidade_id').references('id').inTable('cidades');
   });
-};
+}
 
 export async function down(knex: Knex) {
   return knex.schema.dropTable('clientes');
-};
+}

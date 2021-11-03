@@ -1,7 +1,7 @@
 import Knex from 'knex';
 
 export async function up(knex: Knex) {
-  return knex.schema.createTable('agendamentos', table => {
+  return knex.schema.createTable('agendamentos', (table) => {
     table.increments('id').primary();
 
     table.date('data').notNullable();
@@ -15,14 +15,14 @@ export async function up(knex: Knex) {
     table.foreign('horario_id')
       .references('id')
       .inTable('horarios');
-      
+
     table.foreign('cliente_id')
       .references('id')
       .inTable('clientes')
       .onDelete('CASCADE');
   });
-};
+}
 
 export async function down(knex: Knex) {
   return knex.schema.dropTable('agendamentos');
-};
+}

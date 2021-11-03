@@ -5,4 +5,4 @@ export async function seed(knex: Knex) {
     { sexo: 'Masculino' },
     { sexo: 'Feminino' },
   ]);
-};
+}

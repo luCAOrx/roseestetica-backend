@@ -8,6 +8,6 @@ export async function seed(knex: Knex) {
     { horario: '14:00' },
     { horario: '16:00' },
     { horario: '18:00' },
-    { horario: '20:00' }
+    { horario: '20:00' },
   ]);
-};
+}

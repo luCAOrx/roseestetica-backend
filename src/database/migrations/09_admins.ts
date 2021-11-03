@@ -1,7 +1,7 @@
 import Knex from 'knex';
 
 export async function up(knex: Knex) {
-  return knex.schema.createTable('admins', table => {
+  return knex.schema.createTable('admins', (table) => {
     table.increments('id').primary();
 
     table.string('email', 80).notNullable().unique();
@@ -11,8 +11,8 @@ export async function up(knex: Knex) {
     table.timestamp('criado_em').defaultTo(knex.fn.now());
     table.timestamp('atualizado_em').defaultTo(knex.fn.now());
   });
-};
+}
 
 export async function down(knex: Knex) {
   return knex.schema.dropTable('admins');
-};
+}

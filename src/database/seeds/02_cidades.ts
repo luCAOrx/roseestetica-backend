@@ -6,6 +6,6 @@ export async function seed(knex: Knex) {
     { cidade: 'Alto do Rodrigues' },
     { cidade: 'Pendências' },
     { cidade: 'Assu' },
-    { cidade: 'Angicos' }
+    { cidade: 'Angicos' },
   ]);
-};
+}

@@ -1,11 +1,12 @@
 import nodemailer from 'nodemailer';
 import handlebars from 'nodemailer-express-handlebars';
-
 import path from 'path';
 
 import mailConfig from '../config/mail';
 
-const { host, port, secure, user, pass, ciphers } = mailConfig;
+const {
+  host, port, secure, user, pass, ciphers,
+} = mailConfig;
 
 const transport = nodemailer.createTransport({
   host: String(host),
@@ -13,11 +14,11 @@ const transport = nodemailer.createTransport({
   secure: Boolean(secure),
   auth: {
     user,
-    pass
+    pass,
   },
   tls: {
-    ciphers
-  }
+    ciphers,
+  },
 });
 
 const handlebarOptions = {
