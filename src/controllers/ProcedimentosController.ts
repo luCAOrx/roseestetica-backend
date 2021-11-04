@@ -6,6 +6,6 @@ export default {
   async listarProcedimentos(request: Request, response: Response, next: NextFunction) {
     const procedimentos = await connection('procedimentos').select('*');
 
-    return response.send(procedimentos);
+    return response.status(200).json(procedimentos);
   },
 };
