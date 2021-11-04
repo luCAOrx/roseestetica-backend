@@ -91,8 +91,6 @@ export default {
         refreshToken,
       });
     } catch (erro) {
-      console.log(erro);
-
       return response.status(400).json({ erro: 'Erro em se autenticar.' });
     }
   },
