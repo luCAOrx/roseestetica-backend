@@ -131,14 +131,14 @@ export default {
         });
       }
 
-      const dataEhoraDeAgora = new Date();
+      // const dataEhoraDeAgora = new Date();
 
       const agendamento = {
         data,
         situacao: ocupado,
         cliente_id: id,
         horario_id,
-        agendado_em: dataEhoraDeAgora,
+        // agendado_em: dataEhoraDeAgora,
       };
 
       if (dayjs(data).isBefore(dataDeAgora)) {
@@ -198,7 +198,6 @@ export default {
         .update({
           data,
           horario_id,
-          remarcado_em: dataEhoraDeAgora,
         })
         .where('id', id)
         .andWhere('cliente_id', cliente_id);
