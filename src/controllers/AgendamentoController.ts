@@ -131,7 +131,7 @@ export default {
         });
       }
 
-      const dataEhoraDeAgora = new Date();
+      const dataEhoraDeAgora = Date.now();
 
       const agendamento = {
         data,
