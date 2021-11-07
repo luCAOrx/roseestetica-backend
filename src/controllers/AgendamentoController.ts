@@ -1,3 +1,4 @@
+import { utcToZonedTime } from 'date-fns-tz';
 import dayjs from 'dayjs';
 import { Request, Response } from 'express';
 
@@ -132,13 +133,15 @@ export default {
       }
 
       const dataEhoraDeAgora = new Date();
+      const fusoHorario = 'South_America/BRT';
+      const dataComFusoHorario = utcToZonedTime(dataEhoraDeAgora, fusoHorario);
 
       const agendamento = {
         data,
         situacao: ocupado,
         cliente_id: id,
         horario_id,
-        agendado_em: dataEhoraDeAgora,
+        agendado_em: dataComFusoHorario,
       };
 
       if (dayjs(data).isBefore(dataDeAgora)) {
@@ -170,8 +173,6 @@ export default {
 
   async remarcar(request: Request, response: Response) {
     try {
-      const dataEhoraDeAgora = new Date();
-
       const { data, horario_id } = request.body;
 
       const { id, cliente_id } = request.params;
@@ -194,11 +195,16 @@ export default {
           mensagem: 'O dia para remarcar já passou.',
         });
       }
+
+      const dataEhoraDeAgora = new Date();
+      const fusoHorario = 'South_America/BRT';
+      const dataComFusoHorario = utcToZonedTime(dataEhoraDeAgora, fusoHorario);
+
       await connection('agendamentos')
         .update({
           data,
           horario_id,
-          remarcado_em: dataEhoraDeAgora,
+          remarcado_em: dataComFusoHorario,
         })
         .where('id', id)
         .andWhere('cliente_id', cliente_id);
@@ -222,8 +228,6 @@ export default {
 
       const transaction = await connection.transaction();
 
-      const dataEhoraDeAgora = new Date();
-
       const dataDoAgendamentoNoBancoDeDados = await connection('agendamentos')
         .where({ id: agendamento_id })
         .select('data')
@@ -244,9 +248,13 @@ export default {
 
       await transaction('agendamentos_procedimentos').insert(procedimentos);
 
+      const dataEhoraDeAgora = new Date();
+      const fusoHorario = 'South_America/BRT';
+      const dataComFusoHorario = utcToZonedTime(dataEhoraDeAgora, fusoHorario);
+
       await transaction('agendamentos_procedimentos')
         .update({
-          procedimento_alterado_em: dataEhoraDeAgora,
+          procedimento_alterado_em: dataComFusoHorario,
         })
         .where({ agendamento_id });
 
