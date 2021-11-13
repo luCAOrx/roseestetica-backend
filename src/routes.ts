@@ -50,7 +50,7 @@ routes.put('/atualizar_login/:id',
   ClienteValidation.atualizarLogin,
   ClienteController.atualizarLogin);
 
-routes.patch('/atualizar_foto/:id',
+routes.put('/atualizar_foto/:id',
   authMiddleware,
   upload.single('foto'),
   ClienteController.atualizarFoto);
