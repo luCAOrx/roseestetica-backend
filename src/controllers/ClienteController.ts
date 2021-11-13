@@ -166,31 +166,31 @@ export default {
       }
 
       if (cpfExiste) {
-        process.env.STORAGE_TYPE === 'local'
-
-          ? promisify(fileSystem.unlink)(path.resolve(
+        if (process.env.STORAGE_TYPE === 'local') {
+          promisify(fileSystem.unlink)(path.resolve(
             __dirname, '..', '..', `uploads/${imagem}`,
-          ))
-
-          : s3.deleteObject({
-            Bucket: 'roseestetica-upload',
+          ));
+        } else {
+          s3.deleteObject({
+            Bucket: process.env.AWS_BUCKET_NAME,
             Key: imagem,
           }).promise();
+        }
 
         return response.status(400).json({ erro: 'Esse cpf já existe.' });
       }
 
       if (emailExiste) {
-        process.env.STORAGE_TYPE === 'local'
-
-          ? promisify(fileSystem.unlink)(path.resolve(
+        if (process.env.STORAGE_TYPE === 'local') {
+          promisify(fileSystem.unlink)(path.resolve(
             __dirname, '..', '..', `uploads/${imagem}`,
-          ))
-
-          : s3.deleteObject({
-            Bucket: 'roseestetica-upload',
+          ));
+        } else {
+          s3.deleteObject({
+            Bucket: process.env.AWS_BUCKET_NAME,
             Key: imagem,
           }).promise();
+        }
 
         return response.status(400).json({ erro: 'Esse e-mail já existe.' });
       }
@@ -257,16 +257,16 @@ export default {
     } catch (erro) {
       const { key: imagem } = request.file as Express.MulterS3.File;
 
-      process.env.STORAGE_TYPE === 'local'
-
-        ? promisify(fileSystem.unlink)(path.resolve(
+      if (process.env.STORAGE_TYPE === 'local') {
+        promisify(fileSystem.unlink)(path.resolve(
           __dirname, '..', '..', `uploads/${imagem}`,
-        ))
-
-        : s3.deleteObject({
-          Bucket: 'roseestetica-upload',
+        ));
+      } else {
+        s3.deleteObject({
+          Bucket: process.env.AWS_BUCKET_NAME,
           Key: imagem,
         }).promise();
+      }
 
       return response.status(400).json({ erro: 'Falha ao se cadastrar.' });
     }
@@ -508,8 +508,8 @@ export default {
           __dirname, '..', '..', `uploads/${imagens.imagem}`,
         ));
       } else {
-        s3.deleteObject({
-          Bucket: 'roseestetica-upload',
+        return s3.deleteObject({
+          Bucket: process.env.AWS_BUCKET_NAME,
           Key: imagens.imagem,
         }).promise();
       }
@@ -545,8 +545,8 @@ export default {
           __dirname, '..', '..', `uploads/${imagem}`,
         ));
       } else {
-        s3.deleteObject({
-          Bucket: 'roseestetica-upload',
+        return s3.deleteObject({
+          Bucket: process.env.AWS_BUCKET_NAME,
           Key: imagem,
         }).promise();
       }
@@ -643,8 +643,8 @@ export default {
           __dirname, '..', '..', `uploads/${imagem.imagem}`,
         ));
       } else {
-        s3.deleteObject({
-          Bucket: 'roseestetica-upload',
+        return s3.deleteObject({
+          Bucket: process.env.AWS_BUCKET_NAME,
           Key: imagem.imagem,
         }).promise();
       }
