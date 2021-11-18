@@ -22,18 +22,16 @@ const errorHandler: ErrorRequestHandler = (error, request, response, next) => {
 
     const { key: imagem } = request.file as Express.MulterS3.File;
 
-    process.env.STORAGE_TYPE === 'local'
-
-      ? promisify(fileSystem.unlink)(path.resolve(
+    if (process.env.STORAGE_TYPE === 'local') {
+      promisify(fileSystem.unlink)(path.resolve(
         __dirname, '..', '..', `uploads/${imagem}`,
-      ))
-
-      : s3.deleteObject({
+      ));
+    } else {
+      s3.deleteObject({
         Bucket: 'roseestetica-upload',
         Key: imagem,
       }).promise();
-
-    console.log(errors);
+    }
 
     return response.status(400).json({ message: 'Validation fails', errors });
   }
@@ -44,22 +42,36 @@ const errorHandler: ErrorRequestHandler = (error, request, response, next) => {
 
       const { key: imagem } = request.file as Express.MulterS3.File;
 
-      process.env.STORAGE_TYPE === 'local'
-
-        ? promisify(fileSystem.unlink)(path.resolve(
+      if (process.env.STORAGE_TYPE === 'local') {
+        promisify(fileSystem.unlink)(path.resolve(
           __dirname, '..', '..', `uploads/${imagem}`,
-        ))
-
-        : s3.deleteObject({
+        ));
+      } else {
+        s3.deleteObject({
           Bucket: 'roseestetica-upload',
           Key: imagem,
         }).promise();
+      }
 
       return response.status(400).json({ message });
     }
   }
 
-  console.log(error);
+  if (response.status(401)) {
+    const { key: imagem } = request.file as Express.MulterS3.File;
+
+    if (process.env.STORAGE_TYPE === 'local') {
+      promisify(fileSystem.unlink)(path.resolve(
+        __dirname, '..', '..', `uploads/${imagem}`,
+      ));
+    } else {
+      s3.deleteObject({
+        Bucket: 'roseestetica-upload',
+        Key: imagem,
+      }).promise();
+    }
+  }
+
   return response.status(500).json({ message: 'Internal server error' });
 };
 
