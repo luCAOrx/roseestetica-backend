@@ -57,21 +57,6 @@ const errorHandler: ErrorRequestHandler = (error, request, response, next) => {
     }
   }
 
-  if (response.statusCode === 401) {
-    const { key: imagem } = request.file as Express.MulterS3.File;
-
-    if (process.env.STORAGE_TYPE === 'local') {
-      promisify(fileSystem.unlink)(path.resolve(
-        __dirname, '..', '..', `uploads/${imagem}`,
-      ));
-    } else {
-      s3.deleteObject({
-        Bucket: process.env.AWS_BUCKET_NAME,
-        Key: imagem,
-      }).promise();
-    }
-  }
-
   return response.status(500).json({ message: 'Internal server error' });
 };
 
