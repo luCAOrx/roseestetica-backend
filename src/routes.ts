@@ -51,8 +51,8 @@ routes.put('/atualizar_login/:id',
   ClienteController.atualizarLogin);
 
 routes.patch('/atualizar_foto/:id',
-  authMiddleware,
   upload.single('foto'),
+  authMiddleware,
   ClienteController.atualizarFoto);
 
 routes.post('/esqueci_minha_senha/',
