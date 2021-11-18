@@ -28,7 +28,7 @@ const errorHandler: ErrorRequestHandler = (error, request, response, next) => {
       ));
     } else {
       s3.deleteObject({
-        Bucket: 'roseestetica-upload',
+        Bucket: process.env.AWS_BUCKET_NAME,
         Key: imagem,
       }).promise();
     }
@@ -48,7 +48,7 @@ const errorHandler: ErrorRequestHandler = (error, request, response, next) => {
         ));
       } else {
         s3.deleteObject({
-          Bucket: 'roseestetica-upload',
+          Bucket: process.env.AWS_BUCKET_NAME,
           Key: imagem,
         }).promise();
       }
@@ -57,7 +57,7 @@ const errorHandler: ErrorRequestHandler = (error, request, response, next) => {
     }
   }
 
-  if (response.status(401)) {
+  if (response.statusCode === 401) {
     const { key: imagem } = request.file as Express.MulterS3.File;
 
     if (process.env.STORAGE_TYPE === 'local') {
@@ -66,7 +66,7 @@ const errorHandler: ErrorRequestHandler = (error, request, response, next) => {
       ));
     } else {
       s3.deleteObject({
-        Bucket: 'roseestetica-upload',
+        Bucket: process.env.AWS_BUCKET_NAME,
         Key: imagem,
       }).promise();
     }
