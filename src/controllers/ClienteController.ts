@@ -508,7 +508,7 @@ export default {
           __dirname, '..', '..', `uploads/${imagens.imagem}`,
         ));
       } else {
-        s3.putObject({
+        s3.deleteObject({
           Bucket: process.env.AWS_BUCKET_NAME,
           Key: imagens.imagem,
         }).promise();
