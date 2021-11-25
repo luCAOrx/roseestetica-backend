@@ -4,9 +4,7 @@ import express from 'express';
 import 'express-async-errors';
 import path from 'path';
 
-import ClienteController from './controllers/ClienteController';
 import errorHandler from './errors/handler';
-import authMiddleware from './middlewares/authMidleware';
 import routes from './routes';
 
 const app = express();
