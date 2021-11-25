@@ -23,7 +23,11 @@ const tiposArmazenados = {
     bucket: process.env.AWS_BUCKET_NAME,
     contentType: multerS3.AUTO_CONTENT_TYPE,
     acl: 'public-read',
-    key: (request, file: Express.MulterS3.File, callback) => {
+    key: (request: Request, file: Express.MulterS3.File, callback) => {
+      const authHeader = request.headers.authorization;
+
+      if (!authHeader) return;
+
       const hash = crypto.randomBytes(6).toString('hex');
 
       const fileName = `${hash}-${file.originalname}`;
