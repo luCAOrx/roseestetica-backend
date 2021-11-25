@@ -4,6 +4,7 @@ import express from 'express';
 import 'express-async-errors';
 import path from 'path';
 
+import ClienteController from './controllers/ClienteController';
 import errorHandler from './errors/handler';
 import authMiddleware from './middlewares/authMidleware';
 import routes from './routes';
@@ -16,8 +17,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
-app.use('/login');
-app.use((request, response, next) => next(authMiddleware));
+app.use('/login', ClienteController.autenticar);
+app.use('/*', authMiddleware);
 
 app.use((request, response, next) => {
   next(response.status(404).json({ erro: 'Página não encontrada' }));
