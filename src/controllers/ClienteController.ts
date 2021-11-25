@@ -503,7 +503,7 @@ export default {
         .select(['imagem', 'imagem_aws_url'])
         .first();
 
-      if (response.statusCode === 401) {
+      if (request.statusCode === 401) {
         if (process.env.STORAGE_TYPE === 'local') {
           promisify(fileSystem.unlink)(path.resolve(
             __dirname, '..', '..', `uploads/${imagens.imagem}`,
