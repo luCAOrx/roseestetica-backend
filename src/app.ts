@@ -17,7 +17,7 @@ app.use(routes);
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 app.use('/login');
-app.use(authMiddleware);
+app.use(() => authMiddleware);
 
 app.use((request, response, next) => {
   next(response.status(404).json({ erro: 'Página não encontrada' }));
