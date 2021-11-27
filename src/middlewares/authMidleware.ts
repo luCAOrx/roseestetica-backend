@@ -15,6 +15,8 @@ export default function authentication(request: Request, response: Response, nex
   if (!authHeader) {
     const { key: imagem } = request.file as Express.MulterS3.File;
 
+    if (!process.env.STORAGE_TYPE) return response.status(401).send({ erro: 'Nenhum token fornecido!' });
+
     if (process.env.STORAGE_TYPE === 'local') {
       promisify(fileSystem.unlink)(path.resolve(
         __dirname, '..', '..', `uploads/${imagem}`,
@@ -33,6 +35,8 @@ export default function authentication(request: Request, response: Response, nex
 
   if (Number(!parts.length) === 2) {
     const { key: imagem } = request.file as Express.MulterS3.File;
+
+    if (!process.env.STORAGE_TYPE) return response.status(401).send({ erro: 'Erro de token!' });
 
     if (process.env.STORAGE_TYPE === 'local') {
       promisify(fileSystem.unlink)(path.resolve(
@@ -53,6 +57,8 @@ export default function authentication(request: Request, response: Response, nex
   if (!/^Bearer$/i.test(scheme)) {
     const { key: imagem } = request.file as Express.MulterS3.File;
 
+    if (!process.env.STORAGE_TYPE) return response.status(401).send({ erro: 'Token malformatado!' });
+
     if (process.env.STORAGE_TYPE === 'local') {
       promisify(fileSystem.unlink)(path.resolve(
         __dirname, '..', '..', `uploads/${imagem}`,
@@ -70,6 +76,8 @@ export default function authentication(request: Request, response: Response, nex
   jwt.verify(token, authConfig.secret, (err, decoded: any) => {
     if (err) {
       const { key: imagem } = request.file as Express.MulterS3.File;
+
+      if (!process.env.STORAGE_TYPE) return response.status(401).send({ erro: 'Token inválido!' });
 
       if (process.env.STORAGE_TYPE === 'local') {
         promisify(fileSystem.unlink)(path.resolve(
