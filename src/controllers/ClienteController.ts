@@ -503,19 +503,6 @@ export default {
         .select(['imagem', 'imagem_aws_url'])
         .first();
 
-      if (request.statusCode === 401) {
-        if (process.env.STORAGE_TYPE === 'local') {
-          promisify(fileSystem.unlink)(path.resolve(
-            __dirname, '..', '..', `uploads/${imagens.imagem}`,
-          ));
-        } else {
-          s3.deleteObject({
-            Bucket: process.env.AWS_BUCKET_NAME,
-            Key: imagens.imagem,
-          }).promise();
-        }
-      }
-
       if (process.env.STORAGE_TYPE === 'local') {
         promisify(fileSystem.unlink)(path.resolve(
           __dirname, '..', '..', `uploads/${imagens.imagem}`,
