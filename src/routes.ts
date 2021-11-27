@@ -9,6 +9,7 @@ import ClienteController from './controllers/ClienteController';
 import GenerosController from './controllers/GenerosController';
 import HorariosController from './controllers/HorariosController';
 import ProcedimentosController from './controllers/ProcedimentosController';
+import authMiddlewareForUpdateImage from './middlewares/authMiddlewareForUpdateImage';
 import authMiddleware from './middlewares/authMidleware';
 import AdminValidation from './validations/AdminValidation';
 import AgendamentoValidation from './validations/AgendamentoValidation';
@@ -52,7 +53,7 @@ routes.put('/atualizar_login/:id',
 
 routes.patch('/atualizar_foto/:id',
   upload.single('foto'),
-  authMiddleware,
+  authMiddlewareForUpdateImage,
   ClienteController.atualizarFoto);
 
 routes.post('/esqueci_minha_senha/',
